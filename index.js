@@ -7,6 +7,7 @@ const NOTION_DATABASE = core.getInput('NOTION_DATABASE');
 const TASKS_DATABASE = core.getInput('TASKS_DATABASE'); // Add this input for the Tasks database ID
 const OWNER = core.getInput('OWNER');
 const REPO = core.getInput('REPO');
+const REFS = core.getInput('REFS');
 
 const notion = new Client({ auth: NOTIONAPIKEY });
 
@@ -109,9 +110,10 @@ const filter = (val) => {
     return (val != '' && val && val.length > 0);
 }
 
-let response = await octokit.request('GET /repos/{owner}/{repo}/commits/heads/main', {
+let response = await octokit.request('GET /repos/{owner}/{repo}/commits/{refs}', {
     owner: OWNER,
     repo: REPO,
+    refs: REFS,
     headers: {
         'X-GitHub-Api-Version': '2022-11-28'
     }

@@ -20,6 +20,9 @@ inputs:
   REPO:
     description: "Notion Database ID"
     required: true
+  REFS:
+    description: "Current branch name"
+    required: true
 
 runs:
   using: node20
