@@ -83,9 +83,11 @@ async function addItem(title, message, time, committer, notionTaskId) {
             },
         });
         console.log("Success! Commit pushed to notion.");
+        return response;
     } 
     catch (error) {
         console.error(error.body);
+        return null;
     }
 }
 
@@ -132,4 +134,8 @@ if (!actualNotionPageId) {
     process.exit(1);
 }
 
-addItem(title, message, time, committer, actualNotionPageId);
+const res = addItem(title, message, time, committer, actualNotionPageId);
+if (!res) {
+    console.error("Failed to add item to Notion.");
+    process.exit(1);
+}
