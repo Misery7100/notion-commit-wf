@@ -36,7 +36,7 @@ async function findNotionPageIdByUniqueId(uniqueId) {
     }
 }
 
-async function addItem(title, message, time, committer, notionTaskId) {
+async function addItem(title, message, time, committer, notionTaskId, url) {
     try {
         const response = await notion.pages.create({
             parent: { database_id: NOTION_DATABASE },
@@ -85,6 +85,9 @@ async function addItem(title, message, time, committer, notionTaskId) {
                             id: notionTaskId
                         }
                     ]
+                },
+                "URL": {
+                    url: url
                 }
             },
         });
@@ -123,7 +126,9 @@ messages = messages.filter(filter);
 let title = messages[0];
 let committer = (commit.committer.name);
 messages.splice(0, 1);
+
 let message = messages.join('\n');
+let url = commit.html_url;
 
 // Extract Notion Task ID from the title
 const notionTaskIdMatch = title.match(/^\[(.*?)\]/);
@@ -140,7 +145,7 @@ if (!actualNotionPageId) {
     process.exit(1);
 }
 
-const res = addItem(title, message, time, committer, actualNotionPageId);
+const res = addItem(title, message, time, committer, actualNotionPageId, url);
 if (!res) {
     console.error("Failed to add item to Notion.");
     process.exit(1);
