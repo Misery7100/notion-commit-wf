@@ -94,9 +94,12 @@ const filter = (val) => {
     return (val != '' && val && val.length > 0);
 }
 
-let response = await octokit.request('GET /repos/{owner}/{repo}/commits/main', {
+let response = await octokit.request('GET /repos/{owner}/{repo}/commits/heads/main', {
     owner: OWNER,
-    repo: REPO
+    repo: REPO,
+    headers: {
+        'X-GitHub-Api-Version': '2022-11-28'
+    }
 });
 
 const commit = response.data.commit;
