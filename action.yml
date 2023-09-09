@@ -3,25 +3,25 @@ author: Misery7100
 description: "Export last commit into Notion with commit message parse."
 inputs:
   SECRET_GITHUB:
-    description: "GitHub Token"
+    description: "GitHub Personal Token"
     required: true
   NOTION_API_KEY:
     description: "Notion API Key"
     required: true
   NOTION_DATABASE:
-    description: "Notion Database ID"
+    description: "Notion Database ID for GitHub commits"
     required: true
   TASKS_DATABASE:
-    description: "Tasks Database ID to build relation"
+    description: "Tasks Database ID to build relation with"
     required: true
   OWNER:
-    description: "Notion API Key"
+    description: "Repo owner"
     required: true
   REPO:
-    description: "Notion Database ID"
+    description: "Repo name"
     required: true
   REFS:
-    description: "Current branch name"
+    description: "Refs to get commit from: `echo '${{ github.ref }}' | sed 's|refs/||'`"
     required: true
 
 runs:
