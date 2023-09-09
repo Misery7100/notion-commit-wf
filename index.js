@@ -64,7 +64,7 @@ async function addItem(title, message, time, committer, notionTaskId) {
                         start: time
                     }
                 },
-                "Committed by": {
+                "Commited by": {
                     rich_text: [
                         {
                             text: {
