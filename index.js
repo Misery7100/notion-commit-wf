@@ -40,6 +40,12 @@ async function addItem(title, message, time, committer, notionTaskId) {
     try {
         const response = await notion.pages.create({
             parent: { database_id: NOTION_DATABASE },
+            icon: {
+                type: "external",
+                external: {
+                    url: "https://imgur.com/PADmSx8.png"
+                }
+            },
             properties: {
                 "Title": {
                     title: [
