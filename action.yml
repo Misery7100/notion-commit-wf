@@ -1,0 +1,29 @@
+name: "notion-commit-wf"
+author: Misery7100
+description: "Export last commit into Notion with commit message parse."
+inputs:
+  SECRET_GITHUB:
+    description: "GitHub Token"
+    required: true
+  NOTION_API_KEY:
+    description: "Notion API Key"
+    required: true
+  NOTION_DATABASE:
+    description: "Notion Database ID"
+    required: true
+  TASKS_DATABASE:
+    description: "Tasks Database ID to build relation"
+    required: true
+  OWNER:
+    description: "Notion API Key"
+    required: true
+  REPO:
+    description: "Notion Database ID"
+    required: true
+
+runs:
+  using: node16
+  main: index.js
+branding:
+  icon  : "git-branch"
+  color : "gray-dark"
