@@ -118,6 +118,7 @@ let response = await octokit.request('GET /repos/{owner}/{repo}/commits/heads/ma
 });
 
 const commit = response.data.commit;
+let commitUrl = response.data.html_url;
 let time = new Date(commit.committer.date);
 
 let messages = commit.message.split('\n');
@@ -128,7 +129,6 @@ let committer = (commit.committer.name);
 messages.splice(0, 1);
 
 let message = messages.join('\n');
-let url = commit.html_url;
 
 // Extract Notion Task ID from the title
 const notionTaskIdMatch = title.match(/^\[(.*?)\]/);
@@ -145,7 +145,7 @@ if (!actualNotionPageId) {
     process.exit(1);
 }
 
-const res = addItem(title, message, time, committer, actualNotionPageId, url);
+const res = addItem(title, message, time, committer, actualNotionPageId, commitUrl);
 if (!res) {
     console.error("Failed to add item to Notion.");
     process.exit(1);
