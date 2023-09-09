@@ -12,16 +12,20 @@ const notion = new Client({ auth: NOTIONAPIKEY });
 
 async function findNotionPageIdByUniqueId(uniqueId) {
     try {
-        const response = await notion.search({
-            query: uniqueId,
+        const response = await notion.databases.query({
+            database_id: TASKS_DATABASE,
             filter: {
-                value: {
-                    database: {
-                        id: TASKS_DATABASE
+                "or": [
+                  {
+                    "property": "ID",
+                    "number": {
+                        "equals": uniqueId
                     }
-                }
-            }
+                  } 
+                ]
+              },
         });
+
         if (response.results.length > 0) {
             return response.results[0].id; // Return the actual page ID of the first matching result
         }
@@ -120,8 +124,9 @@ if (!notionTaskIdMatch) {
     process.exit(1);
 }
 const uniqueId = notionTaskIdMatch[1];
+const idNumberMatch = parseInt(uniqueId.match(/\d+/)[0], 10);
 
-const actualNotionPageId = await findNotionPageIdByUniqueId(uniqueId);
+const actualNotionPageId = await findNotionPageIdByUniqueId(idNumberMatch);
 if (!actualNotionPageId) {
     console.error("No matching Notion page found for the unique ID:", uniqueId);
     process.exit(1);
