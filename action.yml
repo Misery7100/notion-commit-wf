@@ -21,7 +21,7 @@ inputs:
     description: "Repo name"
     required: true
   REFS:
-    description: "Refs to get commit from: `echo '${{ github.ref }}' | sed 's|refs/||'`"
+    description: "Refs to get commit from"
     required: true
 
 runs:
